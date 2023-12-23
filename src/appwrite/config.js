@@ -69,7 +69,7 @@ export class Services{
         try {
             return await this.databases.listDocuments(conf.appWriteDataBaseId,
              conf.appWriteCollectionId,[
-                Query.equal("status", "active")
+                Query.equal("status", "public")
              ]
             );            
         } catch (error) {

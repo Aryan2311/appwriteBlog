@@ -9,8 +9,9 @@ import Select from "./Select";
 import RTE from "./RTE";
 import PostForm from "./post-form/PostForm";
 import Login from './Login';
-import Register from './Register'
+import Register from './Register';
+import PostCard from "./PostCard";
 
 
 
-export  {Header,Footer,Container,Logo,LogoutBtn,Button,Input,Select,RTE,PostForm,Login,Register} ;
+export  {Header,Footer,Container,Logo,LogoutBtn,Button,Input,Select,RTE,PostForm,Login,Register,PostCard} ;
