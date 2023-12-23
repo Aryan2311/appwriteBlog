@@ -1,5 +1,5 @@
 import React,{useCallback,useEffect} from 'react' ;
-import {useNavigate} from 'react-router-dom' ;
+import { useNavigate} from 'react-router-dom' ;
 import {useSelector} from 'react-redux' ;
 import {Input,RTE,Select,Button} from '../index';
 import {useForm} from 'react-hook-form';
@@ -60,13 +60,14 @@ function PostForm({post}) {
   },[])
   useEffect(()=>{
     const subscription = watch((value,{name,type})=>{
+        console.log(name , type) ;
         if(name === 'title'){
+            console.log(name , type) ;
             setValue('slug',slugTransform(value.title),{
                 shouldValidate:true
             })
         }
     });
-    
     return () => {
         subscription.unsubscribe();
     }
@@ -75,7 +76,47 @@ function PostForm({post}) {
 
 
   return (
-    <div>PostForm</div>
+    <form onSubmit={handleSubmit(submitHandler)} className='flex flex-wrap'>
+        <div className='w-2/3 px-2'>
+        <Input 
+          labelText = 'Title: '
+          placeholder='Title'
+          type= 'text'
+          className='mb-4'
+          {...register('title',{
+            required:true,
+            minLength :3
+          })}
+        />
+       {/* TODO: update this slug to be read only and use that to redirect to our objects*/}
+        <Input 
+          labelText = 'Slug :'
+          placeholder = 'Slug'
+          className = 'mb-4'
+          {...register('slug',{
+            required:true
+          })}
+          onInput={(e)=>{
+            setValue('slug',slugTransform(e.target.value),{
+                shouldValidate:true
+            })
+          }}
+        />
+        <RTE 
+          labelText='Content: '
+          name='content'
+          control={control}
+          defaultValue={getValues('content')}
+        />
+        </div>
+        <div className='w-1/3 px-2'>
+        <Input 
+          labelText ='PostImage :'
+          
+        />
+        </div>
+
+    </form>
   )
 }
 
