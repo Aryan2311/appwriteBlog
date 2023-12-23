@@ -6,8 +6,9 @@ import {useForm} from 'react-hook-form';
 import appwriteServices from '../../appwrite/config';
 
 function PostForm({post}) {
+    // TODO: check by using post only 
   const navigate = useNavigate();
-  const {register,handleSubmit,watch,control,setValue} = useForm({
+  const {register,handleSubmit,watch,control,setValue,getValues} = useForm({
     defaultValues:{
          title:post?.title || "",
          slug:post?.slug || "",
@@ -102,6 +103,7 @@ function PostForm({post}) {
             })
           }}
         />
+        {getValues('slug')}
         <RTE 
           labelText='Content: '
           name='content'
@@ -112,8 +114,26 @@ function PostForm({post}) {
         <div className='w-1/3 px-2'>
         <Input 
           labelText ='PostImage :'
-          
+          type ='file'
+          placeholder = "Image"
+          className="mb-4"
+          accept="image/png, image/jpg, image/jpeg, image/gif"
+          {...register('image',{
+             required:!post
+          })}
         />
+        <Select
+         options={["active", "inactive"]}
+         labelText="Status"
+         className="mb-4"
+         {...register("status", {required: true})}
+                />
+         <Button
+            type='submit'
+            bgColor={post ? 'bg-green-500':'bg-blue-500'}
+         >
+         {post ? 'update' : 'post'}
+         </Button>
         </div>
 
     </form>
