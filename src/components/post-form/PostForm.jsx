@@ -59,6 +59,17 @@ function PostForm({post}) {
        return "";
   },[])
   useEffect(()=>{
+    const subscription = watch((value,{name,type})=>{
+        if(name === 'title'){
+            setValue('slug',slugTransform(value.title),{
+                shouldValidate:true
+            })
+        }
+    });
+    
+    return () => {
+        subscription.unsubscribe();
+    }
 
   },[watch,slugTransform,setValue])
 
