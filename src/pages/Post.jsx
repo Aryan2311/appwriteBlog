@@ -21,6 +21,7 @@ export default function Post() {
             else{
                 console.log('error cant get post ')
                 navigate('/')
+                console.log(post.userId,userData.$id)
             }
         })
         .catch(err => console.log(err))
@@ -30,6 +31,7 @@ export default function Post() {
         }
    
     },[slug])
+  
     const isAuthor = post && userData ? post.userId == userData.$id : false;
    
     const deletePost = () => {
@@ -37,7 +39,7 @@ export default function Post() {
           .deletePost(post.$id)
           .then(status =>{
             if(status){
-                appwriteServices.deleteFile(post.featuredImg);
+                appwriteServices.deleteFile(post.featuredImage);
                 navigate('/')
             }
           });
@@ -47,7 +49,7 @@ export default function Post() {
     <Container>
         <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
             <img
-                src={appwriteService.getFilePreview(post.featuredImage)}
+                src={appwriteServices.filePreview(post.featuredImage)}
                 alt={post.title}
                 className="rounded-xl"
             />

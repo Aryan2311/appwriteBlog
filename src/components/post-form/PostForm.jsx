@@ -11,9 +11,9 @@ function PostForm({post}) {
   const {register,handleSubmit,watch,control,setValue,getValues} = useForm({
     defaultValues:{
          title:post?.title || "",
-         slug:post?.slug || "",
+         slug:post?.$id || "",
          content:post?.content || "",
-         status : post?.status || "",
+         status : post?.status || "public",
     }
   });
   const userData = useSelector(state=>state.auth.userData);
@@ -21,10 +21,10 @@ function PostForm({post}) {
     if(post){
         const file = data.image[0]? await appwriteServices.uploadFile(data.image[0]) :null;
         if(file){
-            await appwriteServices.deleteFile(post.FeaturedImg);
+            await appwriteServices.deleteFile(post.featuredImage);
             const updatedPost = await appwriteServices.updatePost(post.$id,{
                 ...data,
-                featuredImg : file ? file.$id : undefined
+                featuredImage : file ? file.$id : undefined
             })
             if(updatedPost){
                 navigate(`/post/${updatedPost.$id}`)
@@ -39,7 +39,7 @@ function PostForm({post}) {
             const newPost = await appwriteServices.createPost({
                 ...data,
                 userId:userData.$id,
-                featuredImg : file ? file.$id : undefined
+                featuredImage : file ? file.$id : undefined
             })
             
         if(newPost){
@@ -53,7 +53,7 @@ function PostForm({post}) {
        if(value && typeof value === 'string'){
         return value
         .trim()
-        .toLowerCase
+        .toLowerCase()
         .replace(/[^a-zA-Z\d\s]+/g, '-')
         .replace(/\s/g, "-")
        }
@@ -103,7 +103,6 @@ function PostForm({post}) {
             })
           }}
         />
-        {getValues('slug')}
         <RTE 
           labelText='Content: '
           name='content'
@@ -122,6 +121,14 @@ function PostForm({post}) {
              required:!post
           })}
         />
+        { post && (
+          <img
+          src={appwriteServices.filePreview(post.featuredImage)}
+          alt={post.title}
+          className="rounded-xl"
+      />
+
+        )}
         <Select
          options={["public", "private"]}
          labelText="Status"

@@ -4,7 +4,7 @@ import { logIn,logOut } from './features/authentication/authSlice';
 import authService from './appwrite/authentication';
 import toast, { Toaster } from 'react-hot-toast';
 import {Header,Footer} from './components/index.js';
-// import Outlet from 'react-router-dom' ;
+import {Outlet} from 'react-router-dom' ;
 import ReactLoading from 'react-loading';
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
     {!loading ? (
       <>
       <Header />
-      {/*<Outlet>*/}
+      <Outlet />
       <Footer />
       </>
     )   

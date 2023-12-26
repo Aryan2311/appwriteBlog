@@ -15,7 +15,8 @@ function PostCard({
             src={featuredImage ? services.filePreview(featuredImage) : 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png'}
             alt={title}
             id={featuredImage}
-            className='rounded-xl'
+            className='rounded-xl '
+            
            />
         </div>
         <h2 className='text-xl font-bold'>{title}</h2>

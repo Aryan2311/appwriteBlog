@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {LogoutBtn,Container,Logo} from "../index";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ function Header() {
     },
     {
       name:"All posts",
-      slug:"/all-post",
+      slug:"/all-posts",
       active:authStatus
     },
     {
@@ -46,7 +46,12 @@ function Header() {
             navItems.map((item)=>{
                 if(item.active){
                   return(<li key={item.name}>
-                            <button className='inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full' onClick={()=>{navigate(`/${item.slug}`)}}>{item.name}</button>                   
+                            <button className='inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full' onClick={()=>{
+                              // navigate(`/${item.slug}`)
+                               navigate(item.slug)
+                              console.log('btn clicked')
+                              console.log(item.slug)
+                              }}>{item.name}</button>                   
                           </li>)
                 }
                 else{

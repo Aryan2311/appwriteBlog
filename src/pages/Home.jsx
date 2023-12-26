@@ -11,7 +11,8 @@ function Home() {
      .getPosts()
      .then((posts)=>{
            if(posts){
-              setPosts(posts)
+              setPosts(posts.documents)
+              console.log(posts.documents)
            }
            else{
               console.log('cant fetch posts')
@@ -40,13 +41,13 @@ function Home() {
         <Container>
         <div className='flex flex-wrap'>
           {
-            posts.map(post => (
+            posts? posts.map(post => (
                 <div className='w-1/4 p-2' key={post.$id} onClick={()=>{
-                    navigate(`/post/${post.slug}`)
+                    navigate(`/post/${post.$id}`)
                     }}>
                    <PostCard {...post} />
                 </div>
-            ))
+            )) :<div>No Posts</div>
           }
         </div>
         </Container>

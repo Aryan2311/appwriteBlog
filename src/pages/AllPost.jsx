@@ -1,7 +1,7 @@
 import React from 'react'
 import appwriteServices from '../appwrite/config'
 import { Container, PostCard } from '../components';
-import {useNavigate} from react-router-dom ;
+import { useNavigate } from "react-router-dom";
 // this shows the difference between passing prop as a destructured object in case of AllPost and passing it as object in EditPost !! i.e. in PostCard and PostForm components
 
 function AllPost() {
