@@ -42,6 +42,7 @@ function Header() {
          <Logo width='70px'/>
          </Link>
          <ul className='flex ml-auto'>
+          
            {
             navItems.map((item)=>{
                 if(item.active){
